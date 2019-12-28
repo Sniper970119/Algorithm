@@ -48,7 +48,7 @@ class DP():
 
     def bottom_up_CUT_ROD(self, length, cost):
         """
-        自底向上
+        自底向上钢管切割
         :param length:
         :param cost:
         :return:
