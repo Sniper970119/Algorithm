@@ -27,10 +27,43 @@ class GreedyAlgorithm():
                     value[x] = y
         return value
 
+    def greedy_choose(self, S, i, j):
+        """
+        贪心算法解决活动问题
+        :param S:
+        :param i:
+        :param j:
+        :return:
+        """
+        # 返回点集合
+        return_list = []
+
+        def choose_one(i):
+            """
+            选择一个i时间点之后开始，并且持续时间最短的活动
+            :param i:
+            :return:
+            """
+            min_end_time = float('inf')
+            return_one = None
+            for each in S:
+                if each[1] >= i and each[2] < min_end_time:
+                    min_end_time = each[2]
+                    return_one = each
+            return return_one
+
+        x = i
+        while x <= j:
+            one = choose_one(x)
+            if one is None:
+                return return_list
+            return_list.append(one)
+            x = one[2]
+
 
 if __name__ == '__main__':
-    S = [[1, 1, 4], [2, 3, 5], [3, 0, 6], [4, 5, 7], [5, 3, 9], [6, 5, 9], [7, 6, 10], [8, 8, 10], [9, 8, 12],
+    S = [[1, 1, 4], [2, 3, 5], [3, 0, 6], [4, 5, 7], [5, 3, 9], [6, 5, 9], [7, 6, 10], [8, 8, 11], [9, 8, 12],
          [10, 2, 14], [11, 12, 16]]
     g = GreedyAlgorithm()
     print(g.choose_best_activity_with_dp(S, 0, 16))
-
+    print(g.greedy_choose(S, 0, 16))
