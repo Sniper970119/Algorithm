@@ -60,10 +60,61 @@ class GreedyAlgorithm():
             return_list.append(one)
             x = one[2]
 
+    def shop_with_dp(self, value, bag_size):
+        """
+        0-1背包
+        :param value:
+        :param bag_size:
+        :return:
+        """
+        result = [[0 for _ in range(bag_size+1)] for _ in range(len(value[0]))]
+
+        for i in range(0, len(value[0])):
+            for j in range(0, bag_size+1):
+                if value[i][1] <= j:
+                    if result[i][j] < result[i-1][j - value[i][1]] + value[i][2]:
+                        result[i][j] = result[i-1][j - value[i][1]] + value[i][2]
+                else:
+                    result[i][j] = result[i - 1][j]
+        return result[-1][-1]
+
+    def shop_with_greedy_algorithm(self, value, bag_size):
+        """
+        分数背包问题
+        :param value:
+        :param bag_size:
+        :return:
+        """
+        each_value = [0 for _ in range(len(value))]
+        total_value = 0
+        # 计算商品均价
+        for i in range(len(each_value)):
+            each_value[i] = value[i][2] / value[i][1]
+        # 循环装满背包
+        while bag_size > 0:
+            most_valued_idx = each_value.index(max(each_value))
+            if value[most_valued_idx][1] < bag_size:
+                # 对应背包能装满商品的情况
+                bag_size -= value[most_valued_idx][1]
+                total_value += each_value[most_valued_idx] * value[most_valued_idx][1]
+                each_value.remove(each_value[most_valued_idx])
+                value.remove(value[most_valued_idx])
+            else:
+                # 对应背包不能装全部商品的情况
+                total_value += bag_size * each_value[most_valued_idx]
+                bag_size = 0
+            pass
+        return total_value
+
 
 if __name__ == '__main__':
     S = [[1, 1, 4], [2, 3, 5], [3, 0, 6], [4, 5, 7], [5, 3, 9], [6, 5, 9], [7, 6, 10], [8, 8, 11], [9, 8, 12],
          [10, 2, 14], [11, 12, 16]]
     g = GreedyAlgorithm()
-    print(g.choose_best_activity_with_dp(S, 0, 16))
-    print(g.greedy_choose(S, 0, 16))
+    # print(g.choose_best_activity_with_dp(S, 0, 16))
+    # print(g.greedy_choose(S, 0, 16))
+    value = [[1, 10, 60], [2, 20, 100], [3, 30, 120]]
+    # print(g.shop_with_greedy_algorithm(value, 50))
+    print(g.shop_with_dp(value, 50))
+
+
