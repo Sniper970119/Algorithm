@@ -27,7 +27,7 @@ class Dijsktra():
             min_index = 0
             # 寻找未被访问过的最小点
             for j in range(len(graph[0])):
-                if weight[j] < min_value and vis[j] == 0 and weight[j] != 0:
+                if weight[j] < min_value and vis[j] == 0:
                     min_value = weight[j]
                     min_index = j
             vis[min_index] = 1
