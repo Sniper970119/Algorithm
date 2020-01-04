@@ -6,7 +6,7 @@ class BellmanFord():
 
     def bellman_ford(self, graph):
         """
-        bellman_ford算法
+        bellman_ford算法(默认从0开始
         :param graph:
         :return:
         """
