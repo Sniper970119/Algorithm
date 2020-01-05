@@ -49,7 +49,7 @@ if __name__ == '__main__':
     graph = [[0, 1, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 1], [0, 1, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0],
              [0, 0, 0, 0, 0, 1]]
     g = GraphAlgorithm()
-    # print(g.bfs(graph, 1))
-    print(g.dfs(graph, 1))
+    print(g.bfs(graph, 1))
+    # print(g.dfs(graph, 1))
 
 # 1 2 5 4
